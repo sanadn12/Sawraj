@@ -12,7 +12,7 @@ const About = () => {
         </p>
 
         <p className="text-gray-800 text-lg mt-4 leading-relaxed">
-          Since our establishment in 2003, we’ve built lasting relationships with clients through transparency, fair pricing, and customer-centric service. Whether you're looking for reliable suppliers or quality scrap materials, we are your one-stop solution.
+          Since our establishment in 2003, we’ve built lasting relationships with clients through transparency, fair pricing, and customer-centric service. Whether you&apos;re looking for reliable suppliers or quality scrap materials, we are your one-stop solution.
         </p>
 
         {/* Images Section */}
