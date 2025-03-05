@@ -37,7 +37,7 @@ const Navbar = () => {
           <Link href="/">
             <div className="relative ml-4 h-20 w-60 md:h-24 md:w-80 cursor-pointer">
               <Image
-                src="/Selogo.png"
+                src="/SeLogo.png"
                 alt="MyLogo"
                 layout="fill"
                 objectFit="contain"

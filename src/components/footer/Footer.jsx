@@ -16,7 +16,7 @@ const Footer = () => {
           {/* Column 1: Logo & Contact */}
           <div>
             <Image
-              src="/Selogo.png"
+              src="/SeLogo.png"
               alt="Logo"
               width={224}
               height={96}
