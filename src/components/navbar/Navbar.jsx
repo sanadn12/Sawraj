@@ -26,6 +26,9 @@ const Navbar = () => {
   const menuItems = [
     { name: "Home", path: "home" },
     { name: "About Us", path: "about" },
+    { name: "Marketplace", path: "marketplace" },
+    { name: "Create Account", path: "register" },
+    { name: "Login", path: "login" },
     // { name: "Contact Us", path: "contact" },
   ];
 
