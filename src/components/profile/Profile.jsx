@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaSave, FaCamera } from "react-icons/fa";
 import axios from "axios";
 
-const Profile = () => {
+const Profile = ({ userId, token }) => {
   const BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API_KEY;
 
   const [editName, setEditName] = useState(false);
