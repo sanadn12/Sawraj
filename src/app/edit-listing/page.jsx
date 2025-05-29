@@ -6,18 +6,22 @@ import React ,{Suspense }from 'react'
 
 const page = () => {
   return (
+    <>
+                    <Suspense fallback={<div>Loading...</div>}>
+
     <div>
       
       <Navbar/>
       <div className='mt-24'>
-                <Suspense fallback={<div>Loading...</div>}>
 
         <EditListing/>
-                </Suspense>
 
       </div>
         <Footer/>
     </div>
+                    </Suspense>
+
+    </>
   )
 }
 
