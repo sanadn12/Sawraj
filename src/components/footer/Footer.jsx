@@ -96,7 +96,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://www.linkedin.com/in/sanad-naqvi-687703256/"
+                href="https://www.linkedin.com/company/107023827"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white text-blue-700 p-3 rounded-full hover:bg-blue-700 hover:text-white transition"
@@ -120,6 +120,9 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="mt-12 border-t border-white pt-4 text-center text-sm text-white">
+           <h1 className="mb-2">
+          Made with ❤️ By <a href="https://sanadnaqvi.vercel.app" className="text-white font-bold font-syne">Sanad Naqvi</a>
+        </h1>
           © 2003-2025 Sawraj Enterprises. All rights reserved.
         </div>
 

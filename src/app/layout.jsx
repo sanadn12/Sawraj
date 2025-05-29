@@ -1,5 +1,6 @@
 import { Analytics } from "@vercel/analytics/react"
 import React from "react"
+// import IdleLogout from "@/components/Logout/Logout";
 import "./globals.css";
 export const metadata = {
   title: 'Sawraj Enterprises',
@@ -9,7 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}
+      <body>
+                {/* <IdleLogout /> */}
+{children}
       <Analytics />
       </body>
     </html>

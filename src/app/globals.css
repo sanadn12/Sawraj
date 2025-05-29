@@ -3,3 +3,51 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+  
+
+
+
+  /* Add this to your CSS file or in global styles */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-background {
+  background: linear-gradient(45deg, #ff7a7a, #ff4b5c, #ff7a7a);
+  background-size: 400% 400%;
+  animation: gradientAnimation 2s ease infinite;
+}
+
+
+
+@layer utilities {
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+    background-size: 200% 100%;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -100% 0;
+    }
+    100% {
+      background-position: 100% 0;
+    }
+  }
+}
