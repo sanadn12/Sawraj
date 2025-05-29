@@ -29,8 +29,11 @@ const Profile = () => {
   const [profileImage, setProfileImage] = useState("/personlogo.png");
   const fileInputRef = useRef(null);
   useEffect(() => {
+      if (typeof window !== "undefined") {
+
     setUserId(sessionStorage.getItem("userId"));
     setToken(sessionStorage.getItem("token"));
+      }
   }, []);
 
   useEffect(() => {
