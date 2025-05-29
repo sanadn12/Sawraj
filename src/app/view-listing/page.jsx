@@ -2,7 +2,7 @@ import Footer from '@/components/footer/Footer';
 import Listing from '@/components/listing/Listing';
 
 import Navbar from '@/components/navbar/Navbar';
-import React from 'react'
+import React ,{Suspense }from 'react'
 
 const page = () => {
   return (
@@ -10,7 +10,11 @@ const page = () => {
       <Navbar/>
       <div className='mt-24'>
       </div>
+                      <Suspense fallback={<div>Loading...</div>}>
+      
        <Listing/>
+                       </Suspense>
+       
         <Footer/>
     </div>
   )
