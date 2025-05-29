@@ -1,3 +1,6 @@
+"use client";
+export const dynamic = "force-dynamic";
+
 import Footer from '@/components/footer/Footer';
 import Listing from '@/components/listing/Listing';
 

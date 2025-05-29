@@ -1,4 +1,6 @@
 "use client"
+export const dynamic = "force-dynamic";
+
 import EditListing from '@/components/editListing/EditListing';
 import Footer from '@/components/footer/Footer';
 import Navbar from '@/components/navbar/Navbar';
