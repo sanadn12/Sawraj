@@ -1,3 +1,6 @@
+
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaSave, FaCamera } from "react-icons/fa";
 import axios from "axios";
@@ -9,6 +12,9 @@ const Profile = () => {
   const [editAddress, setEditAddress] = useState(false);
   const [showsaveProfile, setShowSaveProfile] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [userId, setUserId] = useState(null);
+  const [token, setToken] = useState(null);
+  
 
 
   const [userData, setUserData] = useState({
@@ -22,9 +28,10 @@ const Profile = () => {
 
   const [profileImage, setProfileImage] = useState("/personlogo.png");
   const fileInputRef = useRef(null);
-
-  const userId = sessionStorage.getItem("userId");
-  const token = sessionStorage.getItem("token");
+  useEffect(() => {
+    setUserId(sessionStorage.getItem("userId"));
+    setToken(sessionStorage.getItem("token"));
+  }, []);
 
   useEffect(() => {
     const fetchUser = async () => {
