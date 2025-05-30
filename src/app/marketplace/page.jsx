@@ -4,6 +4,7 @@ import Footer from "@/components/footer/Footer";
 import AddButton from "@/components/marketplace/addbutton";
 import Marketplace from "@/components/marketplace/marketplace";
 import Navbar from "@/components/navbar/Navbar";
+import Addbuttonfornon from "@/components/marketplace/addbuttonfornon";
 
 const Page = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -17,6 +18,7 @@ const Page = () => {
     <div>
       <Navbar />
       <Marketplace />
+      {!isLoggedIn && <Addbuttonfornon/>}
       {isLoggedIn && <AddButton />}
       <Footer />
     </div>
