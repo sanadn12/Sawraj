@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaEdit, FaSave, FaCamera } from "react-icons/fa";
 import axios from "axios";
+import Image from "next/image";
+
 
 const Profile = ({ userId, token }) => {
   const BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API_KEY;
@@ -21,8 +23,48 @@ const Profile = ({ userId, token }) => {
 
   const [originalData, setOriginalData] = useState(null); // store original data for comparison
 
-  const [profileImage, setProfileImage] = useState("/personlogo.png");
+  const [profilePicture, setProfileImage] = useState("/personlogo.png");
+  const [pendingProfileImage, setPendingProfileImage] = useState(null);
+
   const fileInputRef = useRef(null);
+
+
+
+ const uploadProfileImage = async (file) => {
+  const formData = new FormData();
+  formData.append("profilePicture", file);
+
+  try {
+    const response = await axios.put(
+      `${BACKEND_API}/users/image/${userId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log("Image upload response:", response.data);
+
+
+if (response.data.profilePicture) {
+  setProfileImage(response.data.profilePicture);
+  setShowSuccessModal(true);
+
+  setTimeout(() => {
+    setShowSuccessModal(false);
+  }, 2000);
+} else {
+  throw new Error("Invalid response data on image upload");
+}
+  } catch (err) {
+    console.error("Error updating profile picture:", err);
+    alert("Profile picture update failed!");
+    throw err;
+  }
+};
 
 
 
@@ -40,8 +82,11 @@ const Profile = ({ userId, token }) => {
         setUserData(response.data.user);
         setOriginalData(response.data.user); // Save original data for change detection
 
-        if (response.data.profileImage) {
-          setProfileImage(response.data.profileImage);
+
+        if (response.data.user.profilePicture) {
+          setProfileImage(response.data.user.profilePicture);
+          console.log("Profile picture URL from backend:", response.data.user.profilePicture);
+
         }
       } catch (error) {
         console.error("Failed to fetch user:", error);
@@ -57,17 +102,16 @@ const Profile = ({ userId, token }) => {
 
     const isChanged =
       userData.name !== originalData.name ||
-      userData.address !== originalData.address ||
-      profileImage !== (originalData.profileImage || "/personlogo.png");
-
+      userData.address !== originalData.address;
     setShowSaveProfile(isChanged);
-  }, [userData, profileImage, originalData]);
+  }, [userData, originalData]);
+
 
   const saveProfile = async () => {
     try {
       const updatedUser = {
         ...userData,
-        profileImage,
+        profilePicture,
       };
 
       const response = await axios.put(
@@ -92,7 +136,7 @@ setTimeout(() => {
 
     } catch (err) {
       console.error("Error updating profile:", err);
-      alert("Profile update failed!");
+        ("Profile update failed!");
     }
   };
 
@@ -100,17 +144,39 @@ setTimeout(() => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-        // Do NOT call saveProfile here directly to avoid saving before user clicks "Save"
-      };
-      reader.readAsDataURL(file);
+const handleImageChange = (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    // Check file size (4MB = 4 * 1024 * 1024 bytes)
+    if (file.size > 4 * 1024 * 1024) {
+      alert("Image size must be less than 4 MB!");
+      return;
     }
-  };
+
+    // Show preview before confirm upload
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPendingProfileImage({
+        file,
+        preview: reader.result,
+      });
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+// Function to upload image after confirmation
+const confirmAndUploadImage = async () => {
+  if (!pendingProfileImage) return;
+
+
+  try {
+    await uploadProfileImage(pendingProfileImage.file);
+    setPendingProfileImage(null);
+  } catch (error) {
+    alert("Failed to upload image.");
+  }
+};
 
   const triggerFileInput = () => {
     fileInputRef.current.click();
@@ -140,29 +206,60 @@ setTimeout(() => {
       <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-16">
         <div className="bg-white/40 backdrop-blur-md shadow-2xl border border-white/20 w-full max-w-5xl rounded-3xl pt-24 pb-10 px-6 text-center relative">
           {/* Profile Image */}
-          <div className="absolute -top-20 left-1/2 transform -translate-x-1/2">
-            <div className="relative">
-              <img
-                src={profileImage || "/personlogo.png"}
-                alt="Profile"
-                className="w-64 h-40 rounded-xl border-4 border-white shadow-xl object-cover"
-              />
-              {/* <button
-                onClick={triggerFileInput}
-                className="absolute bottom-1 right-1 bg-red-600 p-2 rounded-full text-white hover:bg-red-700 transition"
-                title="Change Profile Picture"
-              >
-                <FaCamera size={16} />
-              </button> */}
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                className="hidden"
-                onChange={handleImageChange}
-              />
-            </div>
-          </div>
+         {/* Profile Image */}
+<div className="absolute -top-20 left-1/2 transform -translate-x-1/2">
+  <div className="relative">
+    <Image
+      src={profilePicture || "/personlogo.png"}
+      alt="Profile"
+      width={200}
+      height={160}
+      className="rounded-xl border-4 border-white shadow-xl md:-mt-8 object-cover"
+    />
+
+    <button
+      onClick={triggerFileInput}
+      className="absolute bottom-1 right-1 bg-red-600 p-2 rounded-full text-white hover:bg-red-700 transition"
+      title="Change Profile Picture"
+    >
+      <FaCamera size={16} />
+    </button>
+    <input
+      type="file"
+      accept="image/*"
+      ref={fileInputRef}
+      className="hidden"
+      onChange={handleImageChange}
+    />
+  </div>
+
+  {/* Preview + Confirm for new image */}
+  {pendingProfileImage && (
+    <div className="mt-4 bg-white p-4 rounded-lg shadow-lg max-w-xs mx-auto text-center">
+      <p className="mb-2 font-semibold">Preview New Profile Image</p>
+      <img
+        src={pendingProfileImage.preview}
+        alt="New profile preview"
+        className="mx-auto rounded-lg max-h-48 object-cover"
+      />
+      <div className="flex justify-center gap-4 mt-4">
+        <button
+          onClick={confirmAndUploadImage}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+        >
+          Confirm
+        </button>
+        <button
+          onClick={() => setPendingProfileImage(null)}
+          className="bg-gray-400 hover:bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  )}
+</div>
+
 
           {/* Name */}
           <div className="flex justify-center items-center gap-4 mt-2">

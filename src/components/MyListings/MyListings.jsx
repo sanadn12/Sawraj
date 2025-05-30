@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const MyListings = () => {
   const [userId, setUserId] = useState(null);
@@ -173,12 +174,21 @@ const handleEdit = (listing) => {
   key={listing._id}
   className="bg-white rounded-2xl border border-red-200 shadow-md p-6 hover:shadow-lg transition duration-300 cursor-pointer"
 >
-  <img
-    src="/listingplaceholder.jpg"
+<div className="relative w-full h-48"> {/* Adjust height as needed */}
+  <Image
+    src={
+      Array.isArray(listing.images) && listing.images.length > 0
+        ? listing.images[0]
+        : '/listingplaceholder.jpg'
+    }
     alt={listing.name}
-    className="w-full h-48 object-cover rounded-lg mb-4"
+    fill
+    style={{ objectFit: 'contain' }}
+    className="rounded-lg cursor-pointer"
     onClick={() => router.push(`/view-listing?id=${listing._id}`)}
   />
+</div>
+    
   <h2 className="text-xl font-bold text-red-800">{listing.name}</h2>
   <p className="text-sm text-gray-600 mb-1">
     <span className="text-red-700 font-semibold">Category:</span> {listing.category}

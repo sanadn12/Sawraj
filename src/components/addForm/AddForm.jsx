@@ -25,20 +25,20 @@ const AddForm = () => {
     name: "",
     category: "",
     quantity: "",
-    unit: "", 
+    unit: "",
     price: "",
     details: "",
     status: "Available",
     address: "",
-    // images: "",
     listingType: "Sale",
     postedBy: "",
   });
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
-    const [showModal, setShowModal] = useState(false);
-
+  const [showModal, setShowModal] = useState(false);
+  const [images, setImages] = useState([]);
+  const [imagePreviews, setImagePreviews] = useState([]);
 
   useEffect(() => {
     const userId = sessionStorage.getItem("userId");
@@ -47,7 +47,7 @@ const AddForm = () => {
     }
   }, []);
 
-    const handleCloseModal = () => {
+  const handleCloseModal = () => {
     setShowModal(false);
     router.push("/profile");
   };
@@ -57,42 +57,94 @@ const AddForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleImageChange = (e) => {
+  const files = Array.from(e.target.files);
+
+  if (images.length + files.length > 5) {
+    setMessage({ type: "error", text: "You can upload up to 5 images only." });
+    return;
+  }
+
+  const oversized = files.some((file) => file.size > 3 * 1024 * 1024);
+  if (oversized) {
+    setMessage({
+      type: "error",
+      text: "Each image must be less than 3 MB.",
+    });
+    return;
+  }
+
+  const updatedImages = [...images, ...files];
+  setImages(updatedImages);
+
+  const previews = updatedImages.map((file) => URL.createObjectURL(file));
+  setImagePreviews(previews);
+
+  e.target.value = null;
+};
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ type: "", text: "" });
 
-    try {
-
-       const token = sessionStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
-      setMessage({ type: "error", text: "You must be logged in to add a listing." });
+      setMessage({
+        type: "error",
+        text: "You must be logged in to add a listing.",
+      });
       setLoading(false);
       return;
     }
 
-       const payload = {
-      ...formData,
-      quantity: `${formData.quantity} ${formData.unit}`, 
-    };
+    try {
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("category", formData.category);
+      payload.append("quantity", `${formData.quantity} ${formData.unit}`);
+      payload.append("price", formData.price);
+      payload.append("details", formData.details);
+      payload.append("status", formData.status);
+      payload.append("address", formData.address);
+      payload.append("listingType", formData.listingType);
+      payload.append("postedBy", formData.postedBy);
 
-      const response = await axios.post(
+      images.forEach((image) => {
+        payload.append("images", image);
+      });
+
+      await axios.post(
         `${process.env.NEXT_PUBLIC_BACKEND_API_KEY}/listing/addlisting`,
         payload,
-          {
+        {
           headers: {
-            Authorization: `Bearer ${token}`,  
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-            setShowModal(true);
+
+      setShowModal(true);
       setMessage({ type: "success", text: "Listing added successfully!" });
-      setFormData((prev) => ({ ...prev, name: "", category: "", quantity: "",unit: "  ",  price: "", details: "", status: "Available", address: "", listingType: "sale" }));
+      setFormData({
+        name: "",
+        category: "",
+        quantity: "",
+        unit: "",
+        price: "",
+        details: "",
+        status: "Available",
+        address: "",
+        listingType: "Sale",
+        postedBy: formData.postedBy,
+      });
+      setImages([]);
     } catch (error) {
       setMessage({
         type: "error",
-        text:
-          error.response?.data?.error || "Failed to add listing. Try again.",
+        text: error.response?.data?.error || "Failed to add listing. Try again.",
       });
     } finally {
       setLoading(false);
@@ -242,6 +294,31 @@ const AddForm = () => {
               <option value="Sale">Sale</option>
             </select>
           </div>
+
+            <div>
+          <label className="block text-red-600 font-medium mb-1">
+            Upload Images (up to 5 images , 3MB each)
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+            className="w-full px-4 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-400"
+          />
+        </div>
+        {imagePreviews.length > 0 && (
+  <div className="flex flex-wrap gap-2 mt-2">
+    {imagePreviews.map((preview, idx) => (
+      <img
+        key={idx}
+        src={preview}
+        alt={`Preview ${idx + 1}`}
+        className="h-20 w-20 object-cover rounded border border-red-200 shadow"
+      />
+    ))}
+  </div>
+)}
         </div>
 
         <button

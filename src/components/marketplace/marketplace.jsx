@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const Marketplace = () => {
   const router = useRouter();
@@ -38,7 +39,31 @@ const Marketplace = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {items.map((item) => (
             <div key={item._id} className="border-2 border-red-500 rounded-xl overflow-hidden shadow-lg hover:shadow-red-300 hover:scale-105 transition-shadow">
-              <img src="/listingplaceholder.jpg" alt={item.name} className="w-full h-64 object-contain" />
+             {item.images && item.images.length > 0 ? (
+  <div className="relative w-full h-64">
+    <Image
+      src={item.images[0]}
+      alt={item.name}
+      fill
+      style={{ objectFit: 'contain' }}
+      sizes="(max-width: 768px) 100vw, 33vw"
+      priority
+      className="rounded-t-xl"
+    />
+  </div>
+) : (
+  <div className="relative w-full h-64">
+    <Image
+      src="/listingplaceholder.jpg"
+      alt="Placeholder"
+      fill
+      style={{ objectFit: 'contain' }}
+      sizes="(max-width: 768px) 100vw, 33vw"
+      priority
+      className="rounded-t-xl"
+    />
+  </div>
+)}
               <div className="p-4 bg-red-50">
                 <p
                   className={`inline-block text-lg font-semibold px-4 py-1 rounded-full mb-6
