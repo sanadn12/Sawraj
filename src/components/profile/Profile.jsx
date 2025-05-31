@@ -214,7 +214,7 @@ const confirmAndUploadImage = async () => {
       alt="Profile"
       width={200}
       height={160}
-      className="rounded-xl border-4 border-white shadow-xl md:-mt-8 object-cover"
+      className="rounded-xl border-4 border-white shadow-xl -mt-10 md:-mt-12 object-cover"
     />
 
     <button
