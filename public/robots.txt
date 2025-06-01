@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.sawraj.in
+
+# Sitemaps
+Sitemap: https://www.sawraj.in/sitemap.xml
