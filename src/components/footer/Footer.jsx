@@ -86,7 +86,7 @@ const Footer = () => {
             <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
               <a
-                href="https://www.facebook.com/sanad.naqvi.1/?locale=en_GB&_rdr"
+                href="https://www.facebook.com/people/Sawraj-enterprises/61576882319929/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white text-blue-600 p-3 rounded-full hover:bg-blue-600 hover:text-white transition"
@@ -106,7 +106,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="https://www.instagram.com/sanad_n12"
+                href="https://www.instagram.com/sawrajenterprises"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-white text-pink-500 p-3 rounded-full hover:bg-pink-500 hover:text-white transition"
