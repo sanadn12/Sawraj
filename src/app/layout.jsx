@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata = {
   title: 'Sawraj Enterprises Marketplace | List Products, Contact Sellers, Buy & Sell Scrap',
-  description: 'Free product listings and direct seller contacts for scrap and metal trading. Sawraj Enterprises provides a secure platform like Facebook Marketplace or OLX for buying and selling ferrous & non-ferrous metals since 2003.',
+  description: 'Free product listings and direct seller contacts for scrap and metal trading. Sawraj Enterprises provides a secure platform for buying and selling  all types of products and ferrous & non-ferrous metals since 2003.',
   keywords: [
     'free product listing',
     'list products for free',
@@ -27,7 +27,7 @@ export const metadata = {
   robots: 'index, follow',
   openGraph: {
     title: 'Sawraj Enterprises Marketplace | List, Contact, and Trade Scrap Online',
-    description: 'Free product listings and direct seller contacts for scrap and metal trading. A dynamic, trusted marketplace like Facebook Marketplace or OLX.',
+    description: 'Free product listings and direct seller contacts for scrap and metal trading. A dynamic, trusted marketplace for all types of products.',
     url: 'https://www.sawraj.in',
     siteName: 'Sawraj Enterprises',
     images: [
