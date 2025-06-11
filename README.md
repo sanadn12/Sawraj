@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sawraj Enterprises – Frontend
 
-## Getting Started
+This is the **frontend** of Sawraj Enterprises, offering a dynamic, user-friendly interface for our online marketplace.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+##  Project Overview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sawraj Enterprises is a free, open, and easy-to-use marketplace. Key features include:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Free Listings:** Anyone can create a free account to post listings for any type of product (retail, wholesale, etc.).
+- **Public Listings:** No login required to browse listings, view product details, or contact sellers.
+- **Smooth UI:** Modern design for a seamless user experience.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Public Marketplace:** Listings and contact info visible to everyone.
+- **User Accounts:** Register for free to post and manage listings.
+- **Responsive Design:** Works on mobile and desktop.
+- **Modern Tech Stack:** Built with [React/Next.js – fill in if needed].
+- **Real-time Updates:** Interactive interface for buyers and sellers.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+##  Licensing & Ownership
 
-## Deploy on Vercel
+> **Copyright © 2025 Sawraj Enterprises**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project and all its content are **private property** of Sawraj Enterprises.  
+No part of this project may be copied, reproduced, distributed, or modified without express written permission from the owner.  
+**All rights reserved**.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+##  Contact
+
+For questions, support, or collaboration, reach out:
+
+- **Email:** [ni.sanad1233@gmail.com](mailto:ni.sanad1233@gmail.com)
+- **LinkedIn:** [Sanad Naqvi](https://www.linkedin.com/in/sanad-naqvi-687703256/)
+- **GitHub:** [sanadn12](https://github.com/sanadn12)
+
+---
+
+
+Visit us at: [www.sawraj.in](https://www.sawraj.in)
+Thank you for using Sawraj Enterprises!
