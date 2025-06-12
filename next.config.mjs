@@ -1,8 +1,15 @@
+import nextPwa from 'next-pwa';
+
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-     images: {
+const baseConfig = {
+  images: {
     domains: ['drive.google.com'],
   },
 };
 
-export default nextConfig;
+// Wrap base config with nextPwa
+export default nextPwa({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+})(baseConfig);

@@ -61,6 +61,18 @@ export default function RootLayout({ children }) {
         <meta name="keywords" content={metadata.keywords.join(', ')} />
         <meta name="robots" content={metadata.robots} />
 
+
+
+ {/* PWA Support */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#0A0A0A" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="icon" href="/selogo.jpg" sizes="192x192" />
+        <link rel="apple-touch-icon" href="/SeLogo.png" sizes="512x512" />
+
+
+
         {/* Open Graph */}
         <meta property="og:title" content={metadata.openGraph.title} />
         <meta property="og:description" content={metadata.openGraph.description} />
