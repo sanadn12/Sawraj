@@ -4,6 +4,25 @@ import { FaEdit, FaSave, FaCamera ,FaCog } from "react-icons/fa";
 import axios from "axios";
 import { useRouter } from "next/navigation"; 
 
+const ProfileSkeleton = () => {
+  return (
+    <div className="animate-pulse space-y-6">
+      {/* Name */}
+      <div className="flex justify-center items-center gap-4 mt-2">
+        <div className="h-10 w-48 bg-gray-300 rounded-md"></div>
+        <div className="h-8 w-8 bg-gray-300 rounded-full"></div>
+      </div>
+
+      {/* Details */}
+      <div className="mt-6 space-y-4 max-w-md mx-auto text-left">
+        <div className="h-5 w-64 bg-gray-300 rounded-md"></div>
+        <div className="h-5 w-40 bg-gray-300 rounded-md"></div>
+        <div className="h-12 w-full bg-gray-300 rounded-md"></div>
+      </div>
+    </div>
+  );
+};
+
 
 const Profile = ({ token }) => {
    const router = useRouter();
@@ -14,13 +33,8 @@ const Profile = ({ token }) => {
   const [showsaveProfile, setShowSaveProfile] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const [userData, setUserData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    profilePicture: "",
-  });
+const [userData, setUserData] = useState(null);
+const [isLoading, setIsLoading] = useState(true);
 
   const [originalData, setOriginalData] = useState(null);
   const [pendingProfileImage, setPendingProfileImage] = useState(null);
@@ -68,6 +82,7 @@ const Profile = ({ token }) => {
 
         setUserData(response.data.user);
         setOriginalData(response.data.user);
+        setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch user:", error);
       }
@@ -166,7 +181,7 @@ const Profile = ({ token }) => {
       <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-16">
         <div className="bg-white/40 backdrop-blur-md shadow-2xl border border-white/20 w-full max-w-5xl rounded-3xl pt-24 pb-10 px-6 text-center relative">
         {/* Settings Button - Only visible if Admin */}
-{userData.role === "admin" && (
+{userData?.role === "admin" && (
  <button
           className="absolute top-6 right-6 text-red-600 hover:text-red-800 bg-white/60 backdrop-blur-sm p-3 rounded-full shadow-md transition"
           title="Admin Settings"
@@ -180,7 +195,7 @@ const Profile = ({ token }) => {
           <div className="absolute -top-20 left-1/2 transform -translate-x-1/2">
             <div className="relative">
               <img
-                src={userData.profilePicture || "/personlogo.png"}
+                src={userData?.profilePicture || "/personlogo.png"}
                 alt="Profile"
                 className="rounded-xl border-4 border-white shadow-xl w-40 h-40 object-cover"
               />
@@ -228,6 +243,10 @@ const Profile = ({ token }) => {
           </div>
 
           {/* Name */}
+          {isLoading  ? (
+  <ProfileSkeleton />  
+) : (
+  <>
           <div className="flex justify-center items-center gap-4 mt-2">
             {editName ? (
               <input
@@ -291,7 +310,10 @@ const Profile = ({ token }) => {
                 </>
               )}
             </div>
+            
           </div>
+            </>
+)}
 
           {/* Save Button */}
           {showsaveProfile && (
