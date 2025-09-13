@@ -164,7 +164,7 @@ const MyListings = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-red-800 mb-3">No listings found</h2>
-          <p className="text-red-600 mb-6">You haven't created any listings yet. Start by adding your first product!</p>
+          <p className="text-red-600 mb-6">You haven&apos;t created any listings yet. Start by adding your first product!</p>
           <button 
             onClick={() => router.push('/addForm')}
             className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-3 rounded-lg font-medium hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg"

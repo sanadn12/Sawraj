@@ -50,7 +50,6 @@ const Listing = () => {
                     `📝 Description: ${listing.details?.substring(0, 120)}...%0A%0A` +
                     `🛒 Check out this amazing product: ${window.location.href}`;
     
-    // Open WhatsApp with the pre-filled message
     window.open(`https://wa.me/?text=${message}`, '_blank');
     setShowShareTooltip(false);
   };
@@ -88,7 +87,7 @@ const Listing = () => {
             </svg>
           </div>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">No Listing Available</h2>
-          <p className="text-gray-600 mb-6">We couldn't find the listing you're looking for.</p>
+          <p className="text-gray-600 mb-6">We couldn&apos;t find the listing you&apos;re looking for.</p>
           <button
             onClick={() => router.push('/marketplace')}
             className="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-6 rounded-full transition duration-300"
