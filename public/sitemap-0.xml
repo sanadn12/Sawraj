@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://www.sawraj.in/contact</loc><lastmod>2025-06-12T06:22:10.286Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/edit-listing</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/addForm</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/login</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/about</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/marketplace</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/profile</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/register</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
-<url><loc>https://www.sawraj.in/view-listing</loc><lastmod>2025-06-12T06:22:10.287Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/admin</loc><lastmod>2025-09-13T06:08:24.110Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/contact</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/edit-listing</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/login</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/marketplace</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/about</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/register</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/view-listing</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/profile</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.sawraj.in/addForm</loc><lastmod>2025-09-13T06:08:24.111Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </urlset>
