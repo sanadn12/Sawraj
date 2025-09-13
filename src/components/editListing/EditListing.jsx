@@ -6,12 +6,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 const Modal = ({ message, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm text-center">
-        <p className="mb-4 text-lg text-green-400 font-semibold">{message}</p>
+    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 backdrop-blur-sm transition-opacity duration-300">
+      <div className="bg-white rounded-xl shadow-2xl p-8 max-w-md mx-4 transform transition-all duration-300 scale-100 hover:scale-105">
+        <div className="flex justify-center mb-5">
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        </div>
+        <p className="mb-6 text-lg text-gray-800 font-semibold text-center">{message}</p>
         <button
           onClick={onClose}
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+          className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-3 rounded-lg font-medium hover:from-green-600 hover:to-green-700 transition-all duration-300 shadow-md hover:shadow-lg"
         >
           OK
         </button>
@@ -60,6 +67,10 @@ const EditListing = () => {
         });
       } catch (err) {
         console.error("Failed to fetch listing:", err);
+        setMessage({
+          type: "error",
+          text: "Failed to load listing details. Please try again.",
+        });
       }
     };
 
@@ -113,127 +124,207 @@ const EditListing = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 bg-white border border-red-200 rounded-2xl shadow-xl p-8">
-      <button
-        onClick={() => router.push("/profile")}
-        className="mb-8 inline-block text-red-700 font-semibold hover:text-red-900 transition-colors duration-300"
-      >
-        ← Back to My Profile
-      </button>
-      <h2 className="text-3xl font-bold text-red-600 mb-6 text-center">Edit Listing</h2>
-
-      {message.text && (
-        <div className={`text-center mb-4 font-semibold ${message.type === "success" ? "text-green-600" : "text-red-600"}`}>
-          {message.text}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
-        {[
-          { name: "name", label: "Product Name*", type: "text" },
-          { name: "price", label: "Price ₹(for each)*", type: "number" },
-          { name: "address", label: "Address*", type: "text" },
-        ].map(({ name, label, type }) => (
-          <div key={name}>
-            <label className="block text-red-600 font-medium mb-1">{label}</label>
-            <input
-              type={type}
-              name={name}
-              value={formData[name]}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-400"
-            />
-          </div>
-        ))}
-
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <label className="block text-red-600 font-medium mb-1">Quantity*</label>
-            <input
-              type="number"
-              name="quantity"
-              value={formData.quantity}
-              onChange={handleChange}
-              required
-              min={0}
-              step="any"
-              className="w-full px-4 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-400"
-            />
-          </div>
-          <div className="flex-1">
-            <label className="block text-red-600 font-medium mb-1">Unit*</label>
-            <select
-              name="unit"
-              value={formData.unit}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-400"
-            >
-              <option value="" disabled>--Select Unit--</option>
-              <option value="kg">kg</option>
-              <option value="g">g</option>
-              <option value="litre">litre</option>
-              <option value="piece">piece</option>
-            </select>
-          </div>
-        </div>
-        <div>
-  <label className="block text-red-600 font-medium mb-1">Category*</label>
-  <select
-    name="category"
-    value={formData.category}
-    onChange={handleChange}
-    className="w-full px-4 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-400"
-    required
-  >
-  <option value="" disabled>
-    --Select Category--
-  </option>
-   <option value="Scrap Materials">Scrap Materials</option>
-<option value="Construction Materials">Construction Materials</option>
-<option value="Real Estate">Real Estate</option>
-<option value="Clothing">Clothing</option>
-<option value="Vehicles">Vehicles</option>
-<option value="Home Appliances">Home Appliances</option>
-<option value="Plastic & Packaging Materials">Plastic & Packaging Materials</option>
-<option value="Electronics & Gadgets">Electronics & Gadgets</option>
-<option value="Furniture">Furniture</option>
-<option value="Books & Stationery">Books & Stationery</option>
-<option value="Agricultural Products">Agricultural Products</option>
-<option value="Industrial Equipment">Industrial Equipment</option>
-<option value="Tools & Machinery">Tools & Machinery</option>
-<option value="Jewelry & Accessories">Jewelry & Accessories</option>
-<option value="Health & Beauty">Health & Beauty</option>
-<option value="Sports & Outdoor">Sports & Outdoor</option>
-<option value="Toys & Games">Toys & Games</option>
-<option value="Food & Beverages">Food & Beverages</option>
-<option value="Services">Services</option>
-  </select>
-</div>
-
-        <div>
-          <label className="block text-red-600 font-medium mb-1">Details</label>
-          <textarea
-            name="details"
-            value={formData.details}
-            onChange={handleChange}
-            rows={4}
-            className="w-full px-4 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-400"
-          />
-        </div>
-
-        <div className="flex justify-end">
+    <div className="min-h-screen bg-gradient-to-b from-red-50 to-white py-8 px-4">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl overflow-hidden border border-red-100">
+        <div className="bg-gradient-to-r from-red-600 to-red-700 p-6 text-white">
           <button
-            type="submit"
-            disabled={loading}
-            className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-all"
+            onClick={() => router.push("/profile")}
+            className="mb-4 inline-flex items-center text-white bg-red-800 bg-opacity-30 hover:bg-opacity-40 px-4 py-2 rounded-lg transition-all duration-300 font-medium backdrop-blur-sm"
           >
-            {loading ? "Updating..." : "Update Listing"}
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            Back to My Profile
           </button>
+          <h2 className="text-3xl font-bold mb-2">Edit Listing</h2>
+          <p className="text-red-100">Update your product details</p>
         </div>
-      </form>
 
+        <div className="p-8">
+          {message.text && (
+            <div
+              className={`p-4 rounded-lg mb-6 font-semibold ${
+                message.type === "success" 
+                  ? "bg-green-100 text-green-700 border border-green-200" 
+                  : "bg-red-100 text-red-700 border border-red-200"
+              }`}
+            >
+              {message.text}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="block text-red-700 font-medium">Product Name*</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300"
+                  placeholder="Enter product name"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-red-700 font-medium">Price (₹)*</label>
+                <input
+                  type="number"
+                  name="price"
+                  value={formData.price}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300"
+                  placeholder="Enter price per unit"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-red-700 font-medium">Address*</label>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300"
+                placeholder="Enter your address"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="block text-red-700 font-medium">Quantity*</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  value={formData.quantity}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300"
+                  min="0"
+                  step="any"
+                  placeholder="Enter quantity"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-red-700 font-medium">Unit*</label>
+                <select
+                  name="unit"
+                  value={formData.unit}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300 appearance-none bg-white"
+                >
+                  <option value="" disabled>--Select Unit--</option>
+                  <option value="kgs">Kgs</option>
+                  <option value="pieces">Pieces</option>
+                  <option value="liters">Liters</option>
+                  <option value="meters">Meters</option>
+                  <option value="packs">Packs</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-red-700 font-medium">Category*</label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300 appearance-none bg-white"
+                required
+              >
+                <option value="" disabled>--Select Category--</option>
+                <option value="Scrap Materials">Scrap Materials</option>
+                <option value="Construction Materials">Construction Materials</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Vehicles">Vehicles</option>
+                <option value="Home Appliances">Home Appliances</option>
+                <option value="Plastic & Packaging Materials">Plastic & Packaging Materials</option>
+                <option value="Electronics & Gadgets">Electronics & Gadgets</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Books & Stationery">Books & Stationery</option>
+                <option value="Agricultural Products">Agricultural Products</option>
+                <option value="Industrial Equipment">Industrial Equipment</option>
+                <option value="Tools & Machinery">Tools & Machinery</option>
+                <option value="Jewelry & Accessories">Jewelry & Accessories</option>
+                <option value="Health & Beauty">Health & Beauty</option>
+                <option value="Sports & Outdoor">Sports & Outdoor</option>
+                <option value="Toys & Games">Toys & Games</option>
+                <option value="Food & Beverages">Food & Beverages</option>
+                <option value="Services">Services</option>
+              </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-red-700 font-medium">Details*</label>
+              <textarea
+                name="details"
+                value={formData.details}
+                onChange={handleChange}
+                rows={4}
+                className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300"
+                placeholder="Describe your product in detail..."
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <label className="block text-red-700 font-medium">Status*</label>
+                <select
+                  name="status"
+                  value={formData.status}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300 appearance-none bg-white"
+                >
+                  <option value="Available">Available</option>
+                </select>
+              </div>
+
+              <div className="space-y-2">
+                <label className="block text-red-700 font-medium">Listing Type*</label>
+                <select
+                  name="listingType"
+                  value={formData.listingType}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-red-200 rounded-lg focus:ring-2 focus:ring-red-400 focus:border-transparent transition-all duration-300 appearance-none bg-white"
+                >
+                  <option value="Sale">Sale</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full py-4 rounded-lg font-semibold text-white transition-all duration-300 flex items-center justify-center ${
+                loading 
+                  ? "bg-red-400 cursor-not-allowed" 
+                  : "bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 shadow-md hover:shadow-lg"
+              }`}
+            >
+              {loading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Updating...
+                </>
+              ) : (
+                "Update Listing"
+              )}
+            </button>
+          </form>
+        </div>
+      </div>
+      
       {showModal && <Modal message="Listing updated successfully!" onClose={handleCloseModal} />}
     </div>
   );

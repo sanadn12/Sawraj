@@ -10,7 +10,7 @@ const Page = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const storedId = sessionStorage.getItem("userId");
+    const storedId = sessionStorage.getItem("token");
     setIsLoggedIn(!!storedId);
   }, []);
 

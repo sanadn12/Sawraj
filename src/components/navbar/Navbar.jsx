@@ -10,13 +10,15 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const currentPath = window.location.pathname;
-    const page = currentPath === "/" ? "home" : currentPath.slice(1);
-    setActivePage(page);
+    // Check if we're in the browser environment
+    if (typeof window !== "undefined") {
+      const currentPath = window.location.pathname;
+      const page = currentPath === "/" ? "home" : currentPath.slice(1);
+      setActivePage(page);
 
-    
-    const userId= sessionStorage.getItem("userId");
-    setIsLoggedIn(!!userId);
+      const token = sessionStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    }
   }, []);
 
   const toggleMenu = () => {
@@ -29,9 +31,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("userId");
-        sessionStorage.removeItem("token");
-
+    sessionStorage.removeItem("token");
     setIsLoggedIn(false);
     setActivePage("home");
     window.location.href = "/";
@@ -41,7 +41,7 @@ const Navbar = () => {
     let classes = "text-lg font-semibold transition duration-300";
 
     if (path === "register") {
-      classes += " text-red-500";
+      classes += " text-black";
     } else if (path === "login") {
       classes += " text-black border border-black px-4 md:-mt-1 py-1 rounded hover:bg-red-50";
     } else if (path === "marketplace") {
@@ -123,14 +123,32 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Hamburger Icon */}
-        <div className="md:hidden cursor-pointer" onClick={toggleMenu}>
-          {isOpen ? (
-            <span className="text-3xl">✖</span>
-          ) : (
-            <span className="text-3xl text-red-500">☰</span>
-          )}
-        </div>
+     {/* Hamburger Icon with Animation */}
+<div className="md:hidden cursor-pointer z-50" onClick={toggleMenu}>
+  <div className="w-8 h-8 flex flex-col justify-center items-center relative">
+    {/* Top line */}
+    <span
+      className={`bg-red-500 block h-0.5 w-8 rounded-sm absolute transition-all duration-300 ease-out ${
+        isOpen ? "rotate-45" : "-translate-y-2"
+      }`}
+    ></span>
+
+    {/* Middle line */}
+    <span
+      className={`bg-red-500 block h-0.5 w-8 rounded-sm absolute transition-all duration-300 ease-out ${
+        isOpen ? "opacity-0" : "opacity-100"
+      }`}
+    ></span>
+
+    {/* Bottom line */}
+    <span
+      className={`bg-red-500 block h-0.5 w-8 rounded-sm absolute transition-all duration-300 ease-out ${
+        isOpen ? "-rotate-45" : "translate-y-2"
+      }`}
+    ></span>
+  </div>
+</div>
+
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-8">

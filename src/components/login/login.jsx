@@ -33,10 +33,8 @@ const Login = () => {
     try {
       const response = await axios.post(`${BACKEND_API}/users/login`, formData);
       setSuccess("Login successful!");
-const userId = response.data?.user?._id || response.data?._id;
 const token = response.data?.token; 
-if (userId && token) {
-  sessionStorage.setItem("userId", userId);
+if (token) {
    sessionStorage.setItem("token", token);
 }      router.push("/profile");
     } catch (err) {
