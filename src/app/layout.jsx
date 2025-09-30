@@ -3,36 +3,70 @@ import React from "react";
 import "./globals.css";
 
 export const metadata = {
-  title: 'Sawraj Enterprises Marketplace | List Products, Contact Sellers, Buy & Sell Scrap',
-  description: 'Free product listings and direct seller contacts for scrap and metal trading. Sawraj Enterprises provides a secure platform for buying and selling  all types of products and ferrous & non-ferrous metals since 2003.',
-  keywords: [
-    'free product listing',
-    'list products for free',
-    'contact seller directly',
-    'online scrap marketplace',
-    'sell scrap online',
-    'buy scrap materials',
-    'metal trading platform',
-    'ferrous metal marketplace',
-    'non-ferrous metal marketplace',
-    'trusted scrap dealer',
-    'secure scrap trading',
-    'list your scrap products',
-    'dynamic marketplace for scrap',
-    'Sawraj Enterprises scrap trading'
-  ],
+  title: 'Sawraj Enterprises Marketplace | List Products, Live Auctions, Connect with Sellers, Buy & Sell Scrap, Social Profiles',
+  description: 'Sawraj Enterprises, originally known for scrap and metal trading, now offers a comprehensive marketplace with free product listings, live auctions, and direct seller contacts. Connect with sellers, buy and sell a wide range of products, ferrous and non-ferrous metals, and explore our social profiles for updates and offers.',
+ keywords: [
+  'free product listing',
+  'list products for free',
+  'contact seller directly',
+  'online marketplace India',
+  'buy and sell products online',
+  'live auctions online',
+  'connect with sellers',
+  'industrial product listings',
+  'business trading platform',
+  'trusted online marketplace',
+  'product listing platform',
+  'bulk buying and selling',
+  'online auctions platform',
+  'ferrous and non-ferrous metals',
+  'metal buyers and sellers',
+  'scrap and material auctions',
+  'social marketplace India',
+  'trusted marketplace for sellers',
+  'secure online trading',
+  'list your products online',
+  'dynamic e-commerce marketplace',
+  'buy electronics online',
+  'sell electronics online',
+  'buy furniture online',
+  'sell furniture online',
+  'buy machinery online',
+  'sell machinery online',
+  'B2B product marketplace',
+  'connect with buyers',
+  'online trading platform India',
+  'industrial equipment marketplace',
+  'home products marketplace',
+  'agriculture products marketplace',
+  'live bidding platform',
+  'multi-category marketplace',
+  'online product auctions',
+  'direct seller contacts',
+  'business-to-business marketplace',
+  'buy bulk products online',
+  'sell bulk products online',
+  'trusted seller platform',
+  'online listing platform India',
+  'list and sell products',
+  'marketplace for all products',
+  'social profile marketplace',
+  'product discovery platform',
+  'online trading hub India',
+  'industrial and consumer products'
+],
   authors: [{ name: 'Sawraj Enterprises' }],
   creator: 'Sawraj Enterprises',
   publisher: 'Sawraj Enterprises',
   robots: 'index, follow',
   openGraph: {
-    title: 'Sawraj Enterprises Marketplace | List, Contact, and Trade Scrap Online',
+    title: 'Sawraj Enterprises Marketplace | List, Contact, Auctions and Trade Scrap Online',
     description: 'Free product listings and direct seller contacts for scrap and metal trading. A dynamic, trusted marketplace for all types of products.',
     url: 'https://www.sawraj.in',
     siteName: 'Sawraj Enterprises',
     images: [
       {
-        url: 'https://www.sawraj.in/SeLogo.png', // Replace with your actual OG image
+        url: 'https://www.sawraj.in/selogo.jpg',
         width: 1200,
         height: 630,
         alt: 'Sawraj Enterprises Marketplace'
@@ -69,7 +103,7 @@ export default function RootLayout({ children }) {
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="icon" href="/selogo.jpg" sizes="192x192" />
-        <link rel="apple-touch-icon" href="/SeLogo.png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/selogo.jpg" sizes="512x512" />
 
 
 

@@ -1,20 +1,30 @@
+
+"use client"
 import AddForm from '@/components/addForm/AddForm';
 import Footer from '@/components/footer/Footer';
-
 import Navbar from '@/components/navbar/Navbar';
-import React from 'react'
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
-const page = () => {
+const Page = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      router.push('/login'); 
+    }
+  }, [router]);
+
   return (
     <div>
-      <Navbar/>
-      <div className='mt-36'>
-<AddForm/>
+      <Navbar />
+      <div className="mt-36">
+        <AddForm />
       </div>
-       
-        <Footer/>
+      <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default page;
+export default Page;

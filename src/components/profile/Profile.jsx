@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import { FaLock, FaGlobe } from "react-icons/fa"; 
 import { FaEdit, FaSave, FaCamera ,FaCog } from "react-icons/fa";
+import { FaTimes, FaCheck, FaTimesCircle } from "react-icons/fa";
+
 import axios from "axios";
 import { useRouter } from "next/navigation"; 
 
@@ -32,6 +35,9 @@ const Profile = ({ token }) => {
   const [editAddress, setEditAddress] = useState(false);
   const [showsaveProfile, setShowSaveProfile] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showPublicProfileModal, setShowPublicProfileModal] = useState(false);
+const [username, setUsername] = useState("");
+  
 
 const [userData, setUserData] = useState(null);
 const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +45,52 @@ const [isLoading, setIsLoading] = useState(true);
   const [originalData, setOriginalData] = useState(null);
   const [pendingProfileImage, setPendingProfileImage] = useState(null);
   const fileInputRef = useRef(null);
+
+const refetch = async () => {
+      if (!token) return;
+
+      try {
+        const response = await axios.get(`${BACKEND_API}/users/getuser`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setUserData(response.data.user);
+        setOriginalData(response.data.user);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+
+  const activatePublicProfile = async () => {
+  try {
+    const response = await axios.post(
+      `${BACKEND_API}/users/createpublicprofile`,
+      { username },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    setUserData((prev) => ({
+      ...prev,
+      publicProfile: true,
+      username: response.data.username, 
+    }));
+
+    setShowPublicProfileModal(false);
+    refetch();
+  } catch (err) {
+    console.error("Error activating public profile:", err);
+    alert("Failed to activate public profile. Try another username.");
+  }
+};
+
 
   const uploadProfileImage = async (base64Image) => {
     try {
@@ -180,17 +232,41 @@ const [isLoading, setIsLoading] = useState(true);
       {/* Profile Card */}
       <div className="relative z-10 flex items-center justify-center min-h-screen px-4 py-16">
         <div className="bg-white/40 backdrop-blur-md shadow-2xl border border-white/20 w-full max-w-5xl rounded-3xl pt-24 pb-10 px-6 text-center relative">
+<div className="absolute top-2 right-2 flex flex-col gap-3">
+      <button
+  className="relative text-red-600 hover:text-red-800 bg-white/60 backdrop-blur-sm p-3 rounded-full shadow-md transition"
+  title={userData?.publicProfile ? "Public Profile Active" : "Activate Public Profile"}
+  onClick={() => {
+    if (userData?.publicProfile) {
+      router.push(`/${userData?.username}`); 
+    } else {
+      setShowPublicProfileModal(true);
+    }
+  }}
+>
+  {/* Base Globe */}
+  <FaGlobe size={20} />
+
+  {/* Lock overlay if profile is not public */}
+  {!userData?.publicProfile && (
+    <FaLock
+      size={20}
+      className="absolute -bottom-1 -right-1 text-gray-700 bg-white rounded-full p-[2px]"
+    />
+  )}
+</button>
+
         {/* Settings Button - Only visible if Admin */}
 {userData?.role === "admin" && (
  <button
-          className="absolute top-6 right-6 text-red-600 hover:text-red-800 bg-white/60 backdrop-blur-sm p-3 rounded-full shadow-md transition"
-          title="Admin Settings"
-          onClick={() => router.push("/admin")}
-        >
-          <FaCog size={20} />
-        </button>
+      className="text-red-600 hover:text-red-800 bg-white/60 backdrop-blur-sm p-3 rounded-full shadow-md transition"
+      title="Admin Settings"
+      onClick={() => router.push("/admin")}
+    >
+      <FaCog size={20} />
+    </button>
 )}
-
+</div>
           {/* Profile Image */}
           <div className="absolute -top-20 left-1/2 transform -translate-x-1/2">
             <div className="relative">
@@ -247,7 +323,7 @@ const [isLoading, setIsLoading] = useState(true);
   <ProfileSkeleton />  
 ) : (
   <>
-          <div className="flex justify-center items-center gap-4 mt-2">
+          <div className="flex justify-center items-center gap-4 mt-8 md:mt-2">
             {editName ? (
               <input
                 name="name"
@@ -343,6 +419,68 @@ const [isLoading, setIsLoading] = useState(true);
           </div>
         </div>
       )}
+
+      {showPublicProfileModal && (
+  <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="relative bg-gradient-to-br from-white to-red-50 p-8 rounded-2xl shadow-2xl w-full max-w-md animate-fadeIn">
+      
+      {/* Close Button */}
+      <button
+        onClick={() => setShowPublicProfileModal(false)}
+        className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition"
+      >
+        <FaTimes size={20} />
+      </button>
+
+      {/* Header */}
+      <div className="flex flex-col items-center">
+        <div className="bg-red-100 text-red-600 p-4 rounded-full mb-4 shadow-md">
+          <FaGlobe size={28} />
+        </div>
+        <h2 className="text-2xl font-extrabold text-gray-800 mb-2">
+          Activate Public Profile
+        </h2>
+        <p className="text-gray-600 mb-6 text-sm">
+          Choose a unique username to make your profile visible to others.
+        </p>
+      </div>
+
+      {/* Username Input */}
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Enter your username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full border border-gray-300 rounded-xl px-4 py-3 pr-10 mb-5 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition"
+        />
+        {/* Optional username validation icons */}
+        {username && (
+          <span className="absolute right-3 top-3 text-green-500">
+            <FaCheck size={18} />
+          </span>
+        )}
+    
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex justify-center gap-4">
+        <button
+          onClick={activatePublicProfile}
+          className="flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl shadow-md transition font-semibold"
+        >
+          <FaGlobe size={16} /> Activate
+        </button>
+        <button
+          onClick={() => setShowPublicProfileModal(false)}
+          className="flex items-center gap-2 bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-3 rounded-xl shadow-md transition font-semibold"
+        >
+          <FaTimes size={16} /> Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
     </div>
   );
 };

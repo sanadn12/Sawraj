@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import {  BadgeIndianRupee    } from 'lucide-react';
+
 
 const Marketplace = () => {
   const router = useRouter();
@@ -16,7 +18,8 @@ const Marketplace = () => {
         // Simulate network delay for demo purposes
         await new Promise(resolve => setTimeout(resolve, 1500));
         const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_API_KEY}/listing/getalllistings`);
-        setItems(res.data.data || []);
+        const saleItems = (res.data.data || []).filter(item => item.listingType === "Sale");
+        setItems(saleItems);
       } catch (error) {
         console.error('Error fetching listings:', error);
       } finally {
@@ -65,16 +68,19 @@ const Marketplace = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 mt-28 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800 mb-4 font-syne">
-            Marketplace
-          </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover unique items from our community of sellers. Everything you need, all in one place.
-          </p>
-        </div>
+     <div className="max-w-7xl mx-auto">
+  {/* Header Section */}
+  <div className="text-center mb-12">
+    <div className="flex justify-center items-center mb-4">
+      <h1 className="text-4xl md:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-800 font-syne">
+        Marketplace
+      </h1>
+      <BadgeIndianRupee  size={40} className="ml-6 text-red-800" />
+    </div>
+    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+      Discover unique items from our community of sellers. Everything you need, all in one place.
+    </p>
+  </div>
 
         {isLoading ? (
           <SkeletonLoader />

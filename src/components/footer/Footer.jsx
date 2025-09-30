@@ -78,6 +78,14 @@ const Footer = () => {
                   Contact Us
                 </Link>
               </li>
+                 <li>
+                <Link href="/marketplace" className="hover:underline">
+Marketplace                </Link>
+              </li>
+                 <li>
+                <Link href="/auctions" className="hover:underline">
+Auctions                </Link>
+              </li>
             </ul>
           </div>
 
@@ -121,9 +129,9 @@ const Footer = () => {
         {/* Footer Bottom */}
         <div className="mt-12 border-t border-white pt-4 text-center text-sm text-white">
            <h1 className="mb-2">
-          Made with ❤️ By <a href="https://sanadnaqvi.vercel.app" className="text-white font-bold font-syne">Sanad Naqvi</a>
+          Crafted By <a href="https://sanadnaqvi.vercel.app" className="text-white font-bold font-syne">Sanad Naqvi</a>
         </h1>
-          © 2003-2025 Sawraj Enterprises. All rights reserved.
+          © 2003-2026 Sawraj Enterprises. All rights reserved.
         </div>
 
         {/* WhatsApp Floating Icon */}
@@ -131,7 +139,7 @@ const Footer = () => {
           href="https://wa.me/+919324078235"
           target="_blank"
           rel="noopener noreferrer"
-          className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition"
+          className="fixed bottom-6 right-6 bg-green-500 text-white p-4 rounded-full  shadow-lg hover:bg-green-600 transition"
           aria-label="WhatsApp"
         >
           <WhatsAppIcon fontSize="large" />

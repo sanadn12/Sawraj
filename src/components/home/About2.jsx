@@ -33,7 +33,7 @@ const About2 = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-6">
             <button
-              onClick={() => router.push('/register')}
+              onClick={() => router.push('/login')}
               className="bg-red-500 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:bg-red-600 transition"
             >
               Join Now

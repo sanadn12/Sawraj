@@ -1,13 +1,18 @@
-"use client"
-import Dashboard from '@/components/Admin/Dashboard'
-import React from 'react'
+"use client";
+export const dynamic = "force-dynamic";
 
-const page = () => {
+import Dashboard from '@/components/Admin/Dashboard'
+import Navbar from '@/components/Admin/Navbar'
+import React from 'react'
+const Page = () => {
   return (
     <div>
+      <Navbar/>
+      <div>
         <Dashboard/>
+      </div>
     </div>
   )
 }
 
-export default page
+export default Page;
