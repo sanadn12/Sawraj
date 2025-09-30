@@ -24,7 +24,7 @@ const PaymentCallback = () => {
 const token = sessionStorage.getItem('token');
 
 if (!token) {
-  console.warn("Token missing, fallback to pending. Webhook will confirm payment.");
+  console.log("Token missing, fallback to pending. Webhook will confirm payment.");
   setStatus('pending');
   setMessage(
     'Payment is being processed. You will receive confirmation shortly.'
