@@ -21,8 +21,17 @@ const PaymentCallback = () => {
           return;
         }
 
-        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
-        
+const token = sessionStorage.getItem('token');
+
+if (!token) {
+  console.warn("Token missing, fallback to pending. Webhook will confirm payment.");
+  setStatus('pending');
+  setMessage(
+    'Payment is being processed. You will receive confirmation shortly.'
+  );
+  setTimeout(() => router.push('/profile'), 5000);
+  return;
+}
         // Verify payment with backend
         const response = await axios.get(
           `${BACKEND_API}/plans/verify/${orderId}`,
