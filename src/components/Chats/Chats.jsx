@@ -8,7 +8,7 @@ import { useSearchParams } from "next/navigation";
 import { FiSend, FiSearch, FiMoreVertical, FiArrowLeft } from "react-icons/fi";
 
 const BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API_KEY;
-const SOCKET_SERVER_URL = "http://localhost:7860";
+const SOCKET_SERVER_URL = "https://sawraj-backend.onrender.com";
 
 const Chats = ({ token, userId }) => {
   const [chats, setChats] = useState([]);
