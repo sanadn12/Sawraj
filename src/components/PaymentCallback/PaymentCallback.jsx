@@ -15,64 +15,83 @@ const PaymentCallback = () => {
   useEffect(() => {
     const verifyPayment = async () => {
       try {
+        console.log("=== Payment Callback Debug Logs ===");
+        console.log("Order ID from searchParams:", orderId);
+        console.log("Backend API URL:", BACKEND_API);
+
         if (!orderId) {
+          console.warn("No order ID found in URL.");
           setStatus('error');
           setMessage('Invalid order ID');
           return;
         }
 
-const token = sessionStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
+        console.log("Token from sessionStorage:", token);
 
-if (!token) {
-  console.log("Token missing, fallback to pending. Webhook will confirm payment.");
-  setStatus('pending');
-  setMessage(
-    'Payment is being processed. You will receive confirmation shortly.'
-  );
-  setTimeout(() => router.push('/profile'), 5000);
-  return;
-}
-        // Verify payment with backend
+        if (!token) {
+          console.warn("Token missing, fallback to pending. Webhook will confirm payment.");
+          setStatus('pending');
+          setMessage('Payment is being processed. You will receive confirmation shortly.');
+          setTimeout(() => router.push('/profile'), 5000);
+          return;
+        }
+
+        console.log("Verifying payment with backend...");
+
         const response = await axios.get(
           `${BACKEND_API}/plans/verify/${orderId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`
-            }
+            },
+            validateStatus: () => true // avoid axios throwing on non-2xx
           }
         );
 
+        console.log("Axios response status:", response.status);
+        console.log("Axios response data:", response.data);
+
+        if (response.status === 204 || !response.data) {
+          console.warn("Payment verification returned 204 or empty response. Marking as pending.");
+          setStatus('pending');
+          setMessage('Payment is being processed. You will receive confirmation shortly.');
+          setTimeout(() => router.push('/profile'), 5000);
+          return;
+        }
+
         if (response.data.success) {
+          console.log("Payment verified successfully!");
           setStatus('success');
           setMessage('Payment completed successfully! Your plan has been activated.');
-          
-          // Redirect to profile after 3 seconds
-          setTimeout(() => {
-            router.push('/profile?payment=success');
-          }, 3000);
+          setTimeout(() => router.push('/profile?payment=success'), 3000);
         } else {
+          console.warn("Payment verification returned success: false. Pending status.");
           setStatus('pending');
           setMessage('Payment is being processed. Please check your profile in a few minutes.');
-          
-          setTimeout(() => {
-            router.push('/profile');
-          }, 5000);
+          setTimeout(() => router.push('/profile'), 5000);
         }
+
       } catch (error) {
         console.error('Payment verification error:', error);
+        if (error.response) {
+          console.error("Error response data:", error.response.data);
+          console.error("Error response status:", error.response.status);
+          console.error("Error response headers:", error.response.headers);
+        }
         setStatus('pending');
         setMessage('Payment status is being verified. You will receive an email confirmation shortly.');
-        
-        setTimeout(() => {
-          router.push('/profile');
-        }, 5000);
+        setTimeout(() => router.push('/profile'), 5000);
       }
     };
 
     if (orderId) {
+      console.log("Calling verifyPayment...");
       verifyPayment();
+    } else {
+      console.warn("No orderId, skipping verification.");
     }
-  }, [orderId, router]);
+  }, [orderId, router, BACKEND_API]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
