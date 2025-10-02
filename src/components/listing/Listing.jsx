@@ -342,9 +342,13 @@ const Listing = () => {
                   </div>
                   
                   {/* Contact Seller Button */}
-                  <button className="mt-4 w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 transform hover:-translate-y-0.5">
-                    Contact Seller
-                  </button>
+                 <a
+  href={`tel:${listing.user.phone}`}
+  className="mt-4 w-full block text-center bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-4 rounded-lg transition duration-300 transform hover:-translate-y-0.5"
+>
+  Contact Seller
+</a>
+
                 </div>
               )}
             </div>
