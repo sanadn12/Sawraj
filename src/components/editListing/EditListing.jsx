@@ -241,6 +241,7 @@ const EditListing = () => {
               >
                 <option value="" disabled>--Select Category--</option>
                 <option value="Scrap Materials">Scrap Materials</option>
+                                <option value="Coins & Collectibles">Coins & Collectibles</option>
                 <option value="Construction Materials">Construction Materials</option>
                 <option value="Real Estate">Real Estate</option>
                 <option value="Clothing">Clothing</option>
