@@ -2,11 +2,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-
+import { useRouter } from "next/navigation"; 
 const Register = () => {
 
     const BACKEND_API = process.env.NEXT_PUBLIC_BACKEND_API_KEY;
-
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -74,8 +74,10 @@ const Register = () => {
       const res = await axios.post(`${BACKEND_API}/users/verifyotp`, { email: formData.email, otp });
       setLoading(false);
       if (res.status === 200) {
-        setStep(3);
-        setMessage("Account verified successfully! You can now login.");
+        setMessage("Account verified successfully! Redirecting to login...");
+        setTimeout(() => {
+          router.push("/login"); 
+        }, 1500); 
       }
     } catch (error) {
       setLoading(false);
@@ -255,41 +257,17 @@ One-Time Password (OTP)
       </>
     )}
 
-    {step === 3 && (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5 }}
-        className="text-center"
-      >
-        <h2 className="text-3xl font-extrabold text-green-600 mb-4">
-          Success!
-        </h2>
-        <p className="text-gray-700 mb-6">{message}</p>
-        <button
-          onClick={() => {
-            setStep(1);
-            setFormData({ name: "", email: "", phone: "", password: "" });
-            setOtp("");
-            setErrors({});
-            setMessage("");
-          }}
-          className="py-3 px-6 bg-red-600 text-white rounded-xl font-semibold hover:bg-red-700 transition duration-200"
-        >
-          Register Another Account
-        </button>
-      </motion.div>
-    )}
 
-    {message && step !== 3 && (
-      <p
-        className={`mt-4 text-center font-semibold ${
-          step === 2 ? "text-red-600" : "text-green-700"
-        }`}
-      >
-        {message}
-      </p>
-    )}
+
+   {message && (
+          <p
+            className={`mt-4 text-center font-semibold ${
+              step === 2 ? "text-red-600" : "text-green-700"
+            }`}
+          >
+            {message}
+          </p>
+        )}
   </motion.div>
 </div>
 );
