@@ -129,7 +129,7 @@ Auctions                </Link>
         {/* Footer Bottom */}
         <div className="mt-12 border-t border-white pt-4 text-center text-sm text-white">
            <h1 className="mb-2">
-          Crafted By <a href="https://sanadnaqvi.vercel.app" className="text-white font-bold font-syne">Sanad Naqvi</a>
+          Crafted By <a href="https://acespade.sawraj.in" className="text-white font-bold font-syne">AceSpade Digital</a>
         </h1>
           © 2003-2026 Sawraj Enterprises. All rights reserved.
         </div>

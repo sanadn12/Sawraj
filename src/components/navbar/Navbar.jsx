@@ -106,7 +106,7 @@ useEffect(() => {
     { name: "About Us", path: "about" },
      {
     name: "Need a Website?",
-    path: "https://sanadnaqvi.vercel.app", // External link to portfolio
+    path: "https://acespade.sawraj.in", // External link to portfolio
     external: true,
   },
     { name: "Marketplace", path: "marketplace" },
