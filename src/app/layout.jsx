@@ -72,7 +72,7 @@ export const metadata = {
         alt: 'Sawraj Enterprises Marketplace'
       },
     ],
-    locale: 'en_US',
+    locale: "en_IN",
     type: 'website',
   },
   facebook: {
