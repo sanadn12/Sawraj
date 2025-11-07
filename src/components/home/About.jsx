@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Store, Gavel, UserCheck, Phone } from "lucide-react"; // icons
+import { MacbookScrollDemo } from '../ui/Macbook';
 
 const About = () => {
   const features = [
@@ -61,6 +62,8 @@ const About = () => {
             </p>
           </div>
         </div>
+           <MacbookScrollDemo/>
+        
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
